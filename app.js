@@ -7,15 +7,12 @@ const students = require("./models/studentSchema");
 const cors = require("cors");
 const router = require("./routes/router");
 
-
-const port = process.env.PORT || 8080;
-
-
 app.use(cors());
 app.use(express.json());
 app.use(router);
 
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-    console.log(`server is started on port number ${port}`);
+  console.log(`server is started on port number ${port}`);
 });
