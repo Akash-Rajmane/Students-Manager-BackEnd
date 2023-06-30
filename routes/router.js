@@ -84,40 +84,24 @@ router.delete("/deleteStudent/:rollNumber",async(req,res)=>{
 
 
 // update student
+router.put("/updateStudent/:rollNumber", async (req, res) => {
+  try {
+    const { rollNumber } = req.params;
+    const { name, rollNumber: rN, attendance, marks } = req.body;
 
-/*
-router.patch("/updateStudent/:rollNumber",async(req,res)=>{
-    try {
-        const {rollNumber} = req.params;
+    const student = await students.findOne({ rollNumber: rollNumber });
+    student.name = name;
+    student.rollNumber = rN;
+    student.attendance = attendance;
+    student.marks = marks;
+    await student.save();
 
-        const updatedStudent = await users.findByIdAndUpdate(id,req.body,{
-            new:true
-        });
+    res.status(201).json({ message: "updated successfully" });
+  } catch (error) {
+    res.status(422).json(error);
+  }
+});
 
-        console.log(updatedStudent);
-        res.status(201).json(updatedStudent);
-
-    } catch (error) {
-        res.status(422).json(error);
-    }
-})
-*/
-
-router.patch("/updateStudent/:id",async(req,res)=>{
-    try {
-        const {id} = req.params;
-
-        const updatedStudent = await users.findByIdAndUpdate(id,req.body,{
-            new:true
-        });
-
-        console.log(updatedStudent);
-        res.status(201).json(updatedStudent);
-
-    } catch (error) {
-        res.status(422).json(error);
-    }
-})
 
 
 module.exports = router;
